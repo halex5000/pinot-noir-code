@@ -1,0 +1,27 @@
+{
+  "name": "wine-api-processor",
+  "version": "1.0.0",
+  "description": "Node.js version of the Wine API Data Processor",
+  "main": "wine_api_processor.js",
+  "scripts": {
+    "start": "node wine_api_processor.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wine",
+    "api",
+    "csv",
+    "processor",
+    "nodejs"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
