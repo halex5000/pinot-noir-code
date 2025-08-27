@@ -177,7 +177,7 @@ class WineAPIProcessor {
                 currencycode: 'USD', // Hardcoded to USD
                 location: 'MA', // Hardcoded to MA
                 state: 'MA', // Hardcoded to MA
-                offer_type: 'sale' // Hardcoded to sale
+                offer_type: 'R' // Hardcoded to R
             };
 
             // Hardcode country to USA

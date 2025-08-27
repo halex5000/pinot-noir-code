@@ -95,7 +95,7 @@ node wine_api_processor.js --csv-file "Frenchie 10 Wines - Simple.csv"
 - `currencycode` - Always "USD"
 - `location` - Always "MA"
 - `state` - Always "MA"
-- `offer_type` - Always "sale"
+- `offer_type` - Always "R"
 - `country` - Always "USA"
 
 ### **Example CSV:**
