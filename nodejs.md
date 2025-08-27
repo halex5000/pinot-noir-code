@@ -6,6 +6,7 @@ This guide is specifically designed for **Node.js developers** and covers everyt
 
 ## 🎯 **What You'll Get**
 
+- ✅ **Windows users** (like Eric!) - No virtual environments needed!
 - ✅ **Pure Node.js implementation** with modern ES6+ syntax
 - ✅ **npm package management** for easy dependency handling
 - ✅ **Async/await patterns** for clean asynchronous code
@@ -57,11 +58,17 @@ npm --version
 ```bash
 # If using git
 git clone <repository-url>
-cd weftful
+cd pinot-noir-code
 
 # Or download and extract the ZIP file
-cd weftful
+cd pinot-noir-code
 ```
+
+### **Windows-Specific Notes:**
+- **✅ No virtual environments needed** - Node.js works out of the box
+- **✅ One-click installer** - Download from https://nodejs.org/
+- **✅ Check "Add to PATH"** during Node.js installation
+- **✅ Use Command Prompt** - Right-click folder → "Open Command Prompt here"
 
 ### **Step 2: Install Dependencies**
 ```bash

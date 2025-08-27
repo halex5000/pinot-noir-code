@@ -27,8 +27,8 @@ Choose your preferred language and click through for detailed instructions:
 ### **🟢 Node.js**
 [Node.js Setup & Usage Guide](nodejs.md)
 
-### **🪟 Windows**
-[Windows Setup & Usage Guide](windows.md)
+### **🟢 Node.js (Recommended for Windows)**
+[Node.js Setup & Usage Guide](nodejs.md)
 
 **Each guide will walk you through setup and running step-by-step!**
 
@@ -46,4 +46,4 @@ Choose your preferred language and click through for detailed instructions:
 
 ---
 
-**For Eric on Windows:** Just double-click `run_wine_processor.bat` and follow the prompts! 🎯🍷
+**For Eric on Windows:** Use Node.js - it's much easier than Python! Just install Node.js and follow the [Node.js guide](nodejs.md) 🎯🍷

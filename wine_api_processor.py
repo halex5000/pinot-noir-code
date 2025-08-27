@@ -94,7 +94,7 @@ class WineAPIProcessor:
                             'Wine Name': wine_name,
                             'Vintage': vintage,
                             'Status': 'Success' if success else 'Failed',
-                            'Mock Price': self._generate_mock_price(vintage),  # Mock price for now
+                            'Mock Price': self._generate_mock_price(vintage),
                             'Timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
                         }
                         results.append(result)
@@ -122,7 +122,7 @@ class WineAPIProcessor:
                             'Wine Name': wine_name,
                             'Vintage': vintage,
                             'Status': 'Error',
-                            'Mock Price': self._generate_mock_price(vintage),  # Mock price for now
+                            'Mock Price': self._generate_mock_price(vintage),
                             'Timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
                         }
                         results.append(result)
@@ -174,12 +174,15 @@ class WineAPIProcessor:
                 'api_key': self.api_key,
                 'winename': quote_plus(mapped_row.get('winename', '')),
                 'vintage': mapped_row.get('vintage', ''),
-                'price': self._generate_mock_price(mapped_row.get('vintage', '')),  # Mock price for API
                 'currencycode': 'USD',  # Hardcoded to USD
                 'location': 'MA',  # Hardcoded to MA
                 'state': 'MA',  # Hardcoded to MA
                 'offer_type': 'sale'  # Hardcoded to sale
             }
+            
+            # Only add price if mock pricing is enabled
+            if self.enable_mock_pricing:
+                params['price'] = self._generate_mock_price(mapped_row.get('vintage', ''))
             
             # Hardcode country to USA
             params['country'] = 'USA'
@@ -235,25 +238,25 @@ class WineAPIProcessor:
                 for result in results:
                     if self.enable_mock_pricing:
                         writer.writerow({
-                            'Row': result.get('row', ''),
-                            'Wine Name': result.get('wine_name', ''),
-                            'Vintage': result.get('vintage', ''),
-                            'Status': result.get('status', ''),
-                            'Mock Price': result.get('mock_price', ''),
-                            'Timestamp': result.get('timestamp', '')
+                            'Row': result.get('Row', ''),
+                            'Wine Name': result.get('Wine Name', ''),
+                            'Vintage': result.get('Vintage', ''),
+                            'Status': result.get('Status', ''),
+                            'Mock Price': result.get('Mock Price', ''),
+                            'Timestamp': result.get('Timestamp', '')
                         })
                     else:
                         writer.writerow({
-                            'Row': result.get('row', ''),
-                            'Wine Name': result.get('wine_name', ''),
-                            'Vintage': result.get('vintage', ''),
-                            'Status': result.get('status', ''),
-                            'Timestamp': result.get('timestamp', '')
+                            'Row': result.get('Row', ''),
+                            'Wine Name': result.get('Wine Name', ''),
+                            'Vintage': result.get('Vintage', ''),
+                            'Status': result.get('Status', ''),
+                            'Timestamp': result.get('Timestamp', '')
                         })
                 
-            self.logger.info(f"Results written to {output_csv_path}")
+            logger.info(f"Results written to {output_csv_path}")
         except Exception as e:
-            self.logger.error(f"Error writing results CSV: {str(e)}")
+            logger.error(f"Error writing results CSV: {str(e)}")
 
     def _generate_mock_price(self, vintage: str) -> str:
         """

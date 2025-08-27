@@ -1,0 +1,24 @@
+2025-08-27 13:59:23,105 - INFO - Processing CSV with 2 columns
+2025-08-27 13:59:23,105 - INFO - CSV columns: ['Wine Name', 'Vintage']
+2025-08-27 13:59:23,350 - INFO - Row 2: Successfully processed Test Wine 1 (2015)
+2025-08-27 13:59:23,398 - INFO - Row 3: Successfully processed Test Wine 2 (2020)
+2025-08-27 13:59:23,442 - INFO - Row 4: Successfully processed Test Wine 3 (1995)
+2025-08-27 13:59:23,442 - ERROR - Processing failed: 'WineAPIProcessor' object has no attribute 'logger'
+2025-08-27 13:59:44,246 - INFO - Processing CSV with 2 columns
+2025-08-27 13:59:44,246 - INFO - CSV columns: ['Wine Name', 'Vintage']
+2025-08-27 13:59:44,465 - INFO - Row 2: Successfully processed Test Wine 1 (2015)
+2025-08-27 13:59:44,513 - INFO - Row 3: Successfully processed Test Wine 2 (2020)
+2025-08-27 13:59:44,564 - INFO - Row 4: Successfully processed Test Wine 3 (1995)
+2025-08-27 13:59:49,006 - INFO - Results written to test_wines_results.csv
+2025-08-27 14:00:24,254 - INFO - Processing CSV with 2 columns
+2025-08-27 14:00:24,254 - INFO - CSV columns: ['Wine Name', 'Vintage']
+2025-08-27 14:00:24,503 - INFO - Row 2: Successfully processed Test Wine 1 (2015)
+2025-08-27 14:00:24,546 - INFO - Row 3: Successfully processed Test Wine 2 (2020)
+2025-08-27 14:00:24,599 - INFO - Row 4: Successfully processed Test Wine 3 (1995)
+2025-08-27 14:00:29,821 - INFO - Results written to test_wines_results.csv
+2025-08-27 14:00:39,838 - INFO - Processing CSV with 2 columns
+2025-08-27 14:00:39,838 - INFO - CSV columns: ['Wine Name', 'Vintage']
+2025-08-27 14:00:40,154 - INFO - Row 2: Successfully processed Test Wine 1 (2015)
+2025-08-27 14:00:40,202 - INFO - Row 3: Successfully processed Test Wine 2 (2020)
+2025-08-27 14:00:40,516 - INFO - Row 4: Successfully processed Test Wine 3 (1995)
+2025-08-27 14:00:44,893 - INFO - Results written to test_wines_results.csv

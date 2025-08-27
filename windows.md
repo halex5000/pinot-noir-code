@@ -2,241 +2,177 @@
 
 **Complete Windows instructions for running the Wine API Processor!** 🚀
 
-This guide is specifically designed for **Windows users** (like Eric!) and covers everything you need to get the wine processor running on your Windows machine.
+This guide is specifically designed for **Windows users** (like Eric!) and focuses on the **easiest setup method** for Windows.
 
-## 🎯 **What You'll Get**
+## 🎯 **Why Node.js is Best for Windows**
 
-- ✅ **Two Windows script options** (Command Prompt + PowerShell)
-- ✅ **Automatic setup** - scripts handle everything for you
-- ✅ **Same functionality** as macOS/Linux versions
-- ✅ **Professional error handling** with clear instructions
+### **✅ Node.js Advantages on Windows:**
+- **One-click installer** - Download and run
+- **No virtual environments** - Everything works out of the box
+- **Modern package manager** - `npm install` handles dependencies
+- **Better Windows support** - Designed for cross-platform use
+- **Faster execution** - No Python environment setup delays
 
-## 🚀 **Quick Start - Choose Your Script**
+### **❌ Python Challenges on Windows:**
+- **Virtual environment setup** - More complex on Windows
+- **Dependency conflicts** - Can be tricky with Windows paths
+- **PATH issues** - Common Windows problem
+- **Multiple Python versions** - Can cause confusion
 
-### **Option 1: PowerShell (Recommended) 🟦**
-```powershell
-.\run_wine_processor.ps1 python "Frenchie 10 Wines - Simple.csv"
-.\run_wine_processor.ps1 node "Frenchie 10 Wines - Simple.csv"
+## 🚀 **How to Run (Node.js Only)**
+
+### **Interactive Mode (Recommended)**
+Just run the script without arguments and follow the prompts:
+
+```bash
+node wine_api_processor.js
 ```
 
-### **Option 2: Command Prompt 🖥️**
-```cmd
-run_wine_processor.bat python "Frenchie 10 Wines - Simple.csv"
-run_wine_processor.bat node "Frenchie 10 Wines - Simple.csv"
+### **Command Line Mode**
+Specify all parameters directly:
+
+```bash
+# Basic usage:
+node wine_api_processor.js "Frenchie 10 Wines - Simple.csv"
+
+# With all options:
+node wine_api_processor.js --csv-file "wines.csv" --api-key "my_key" --api-url "https://api.com"
+
+# With mock pricing for testing:
+node wine_api_processor.js --csv-file "wines.csv" --enable-mock-pricing
 ```
 
 ## 📋 **Prerequisites**
 
 ### **Required Software:**
-- **Python 3.6+** OR **Node.js 14+** (you only need one!)
+- **Node.js 14+** (LTS version recommended)
 - **Windows 10/11** (Windows 8.1+ also works)
 
-### **Installation Links:**
-- 🐍 **Python**: https://python.org/downloads/ (check "Add to PATH" during install)
-- 🟢 **Node.js**: https://nodejs.org/ (LTS version recommended)
+### **Installation:**
+- 🟢 **Node.js**: https://nodejs.org/ (download the LTS version)
+- **During installation**: Check "Add to PATH" option
 
 ## 🔧 **Setup Steps**
 
 ### **Step 1: Download the Project**
-1. Download the entire `weftful` folder
-2. Extract it to a location like `C:\Users\Eric\Desktop\weftful\`
-3. Open Command Prompt or PowerShell in that folder
+1. Download the entire `pinot-noir-code` folder
+2. Extract it to a location like `C:\Users\Eric\Desktop\pinot-noir-code\`
+3. Open Command Prompt in that folder
 
-### **Step 2: Choose Your Language**
-
-#### **🐍 Python Version (Recommended for beginners):**
+### **Step 2: Install Dependencies**
 ```cmd
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Run with Python
-.\run_wine_processor.ps1 python "Frenchie 10 Wines - Simple.csv"
-```
-
-#### **🟢 Node.js Version (Great for web developers):**
-```cmd
-# Install Node.js dependencies
 npm install
-
-# Run with Node.js
-.\run_wine_processor.ps1 node "Frenchie 10 Wines - Simple.csv"
 ```
 
-## 📱 **Script Options Explained**
+### **Step 3: Run the Processor**
+```cmd
+# Interactive mode (recommended for first time):
+node wine_api_processor.js
 
-### **PowerShell Script (`.ps1`) - RECOMMENDED**
-- **✅ Modern Windows approach**
-- **✅ Parameter validation**
-- **✅ Beautiful colored output**
-- **✅ Smart error handling**
+# Or with a specific CSV file:
+node wine_api_processor.js "Frenchie 10 Wines - Simple.csv"
+```
 
-### **Command Prompt Script (`.bat`)**
-- **✅ Works on all Windows versions**
-- **✅ Simple and reliable**
-- **✅ No execution policy issues**
+## 📱 **What Happens When You Run It**
+
+### **Interactive Mode:**
+1. **CSV File**: You'll be asked for the path to your wine CSV file
+2. **API Key**: Enter your API key (or use the default for testing)
+3. **API URL**: Enter your API endpoint (or use the default for testing)
+4. **Mock Pricing**: Choose whether to enable fake prices for testing
+5. **Confirmation**: Review your settings and confirm
+6. **Processing**: The script processes your wines and saves results
+
+### **Command Line Mode:**
+- Specify everything upfront for automation
+- Perfect for running the same configuration multiple times
 
 ## 🚨 **Common Windows Issues & Solutions**
 
-### **"Execution Policy" Error (PowerShell)**
-```powershell
-# Run this once to allow script execution
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+### **"Node is not recognized"**
+- **Solution**: Reinstall Node.js and check "Add to PATH" during installation
+- **Verify**: Open Command Prompt and type `node --version`
 
-# Then run your script
-.\run_wine_processor.ps1 python "wines.csv"
-```
-
-### **"Python/Node not found"**
-- **Solution**: Reinstall Python/Node.js and check "Add to PATH" during installation
-- **Verify**: Open Command Prompt and type `python --version` or `node --version`
+### **"npm is not recognized"**
+- **Solution**: Node.js installer should include npm. If not, reinstall Node.js
+- **Verify**: Type `npm --version` in Command Prompt
 
 ### **"Permission Denied"**
-- **Solution**: Right-click Command Prompt/PowerShell → "Run as Administrator"
+- **Solution**: Right-click Command Prompt → "Run as Administrator"
 - **Alternative**: Run from your user folder instead of Program Files
 
 ### **"File not found"**
 - **Solution**: Make sure you're in the right directory
-- **Check**: Type `dir` to see if `wine_api_processor.py` and other files are visible
+- **Check**: Type `dir` to see if `wine_api_processor.js` and other files are visible
 
-## 🎯 **Usage Examples**
+### **"Cannot find module"**
+- **Solution**: Run `npm install` in the project folder
+- **Verify**: Check that `node_modules` folder exists
 
-### **Basic Usage (Uses Defaults):**
-```powershell
-# Python version with default API settings
-.\run_wine_processor.ps1 python "my_wines.csv"
+## 🎭 **Mock Pricing Feature**
 
-# Node.js version with default API settings
-.\run_wine_processor.ps1 node "wine_list.csv"
+### **What It Does:**
+- Generates realistic fake prices for testing
+- Prices vary based on wine vintage
+- Only enabled when you choose to use it
+
+### **When to Use:**
+- **✅ Testing**: Enable mock pricing to see how the system works
+- **❌ Production**: Disable mock pricing for real wine data
+
+### **How to Control:**
+```bash
+# Enable for testing:
+node wine_api_processor.js --enable-mock-pricing
+
+# Disable for production (default):
+node wine_api_processor.js
 ```
 
-### **Custom API Settings:**
-```powershell
-# Custom API key and URL
-.\run_wine_processor.ps1 python "wines.csv" "my_secret_key" "https://myapi.com/endpoint"
+## 📊 **Example Output**
 
-# Node.js with custom settings
-.\run_wine_processor.ps1 node "wines.csv" "my_secret_key" "https://myapi.com/endpoint"
+After processing, you'll get a results CSV file like:
 ```
-
-### **Command Prompt Examples:**
-```cmd
-# Python version
-run_wine_processor.bat python "my_wines.csv"
-
-# Node.js version
-run_wine_processor.bat node "wine_list.csv"
-
-# Custom settings
-run_wine_processor.bat python "wines.csv" "my_key" "https://api.com/endpoint"
-```
-
-## 🌟 **What Happens When You Run It**
-
-1. **🔍 Smart Detection** - Script checks if Python/Node.js is installed
-2. **🔧 Auto-Setup** - Installs missing dependencies automatically
-3. **📊 CSV Processing** - Reads your wine data file
-4. **🌐 API Calls** - Makes requests to your endpoint
-5. **📝 Results** - Creates a new CSV with processing results
-6. **🎉 Success** - Shows summary of what was processed
-
-## 📊 **Expected Output**
-
-```
-[INFO] 🍷 Starting Wine API Processor...
-[INFO] Language: python
-[INFO] CSV File: Frenchie 10 Wines - Simple.csv
-[INFO] API Key: test_api_key_123
-[INFO] API URL: https://postman-echo.com/get
-
-[INFO] Found Python virtual environment, activating...
-[INFO] Running Python version...
-[INFO] CSV: Frenchie 10 Wines - Simple.csv
-[INFO] API Key: test_api_key_123
-[INFO] API URL: https://postman-echo.com/get
-
-2025-08-27 12:49:34,910 - INFO - Starting wine data processing...
-2025-08-27 12:49:34,911 - INFO - CSV file: Frenchie 10 Wines - Simple.csv
-2025-08-27 12:49:34,911 - INFO - API URL: https://postman-echo.com/get
-2025-08-27 12:49:34,911 - INFO - Rate limit: 1.0s between calls
-2025-08-27 12:49:34,911 - INFO - Processing CSV with 2 columns
-2025-08-27 12:49:34,911 - INFO - CSV columns: ['Wine Name', 'Vintage']
-2025-08-27 12:49:35,287 - INFO - Row 2: Successfully processed Immich Batterieberg  (2018)
-2025-08-27 12:49:35,367 - INFO - Row 3: Successfully processed Chateau Anglican Granit St Lu (2009)
-...
-[SUCCESS] Processing complete! 🎉
-```
-
-## 🎯 **File Structure (Windows View)**
-
-```
-C:\Users\Eric\Desktop\weftful\
-├── 📄 README-Windows.md            # This file
-├── 🐍 wine_api_processor.py        # Python version
-├── 🟢 wine_api_processor.js        # Node.js version
-├── 🪟 run_wine_processor.bat       # Command Prompt script
-├── 🪟 run_wine_processor.ps1       # PowerShell script
-├── 📋 requirements.txt              # Python dependencies
-├── 📦 package.json                  # Node.js dependencies
-└── 🍷 Frenchie 10 Wines - Simple.csv # Your wine data
+Row,Wine Name,Vintage,Status,Timestamp
+2,Test Wine 1,2015,Success,2025-08-27 18:04:46
+3,Test Wine 2,2020,Success,2025-08-27 18:04:47
+4,Test Wine 3,1995,Success,2025-08-27 18:04:47
 ```
 
 ## 🚀 **Pro Tips for Windows Users**
 
-### **1. Use PowerShell When Possible**
-- More powerful than Command Prompt
-- Better error messages
-- Parameter validation
+### **File Paths:**
+- Use quotes around file paths with spaces: `"My Wines.csv"`
+- You can drag and drop files into Command Prompt
+- Use backslashes or forward slashes: `C:\Users\Eric\Desktop\wines.csv`
 
-### **2. Check Your PATH**
-- Make sure Python/Node.js are in your system PATH
-- Use `python --version` to verify installation
+### **CSV Files:**
+- Make sure your CSV has headers: `Wine Name,Vintage`
+- Handle BOM characters automatically (the script does this for you)
+- Use UTF-8 encoding for best compatibility
 
-### **3. Run as Administrator (if needed)**
-- Right-click PowerShell → "Run as Administrator"
-- Helps with permission issues
+### **Performance:**
+- Node.js is fast and efficient on Windows
+- No need to worry about virtual environments or Python versions
+- Dependencies are managed automatically by npm
 
-### **4. Use Quotes for File Paths**
-- Always use quotes around file names with spaces
-- Example: `"Frenchie 10 Wines - Simple.csv"`
+## 🎯 **Ready to Start?**
 
-## 🆘 **Getting Help**
+1. **Install Node.js** from https://nodejs.org/
+2. **Download the project** files
+3. **Open Command Prompt** in the project folder
+4. **Run `npm install`** to get dependencies
+5. **Run `node wine_api_processor.js`** to start processing!
 
-### **Script Help:**
-```powershell
-# PowerShell help
-.\run_wine_processor.ps1 --help
+## 🆘 **Need Help?**
 
-# Command Prompt help
-run_wine_processor.bat help
-```
+- **Check the logs**: The script shows detailed information as it runs
+- **Verify your CSV**: Make sure it has the right format
+- **Check Node.js**: Ensure it's properly installed and in your PATH
+- **Review the [Node.js guide](nodejs.md)**: More detailed technical information
 
-### **Common Commands:**
-```cmd
-# Check Python version
-python --version
+**Eric, you now have everything you need to run the wine processor on Windows with Node.js!** 🎯
 
-# Check Node.js version
-node --version
-
-# List files in directory
-dir
-
-# Change directory
-cd C:\Users\Eric\Desktop\weftful
-```
-
-## 🎉 **You're All Set!**
-
-**Eric, you now have everything you need to run the wine processor on Windows!** 
-
-The scripts will:
-- ✅ Automatically detect your setup
-- ✅ Install missing dependencies
-- ✅ Handle errors gracefully
-- ✅ Give you clear instructions
-
-**Just download the folder, open PowerShell, and run the commands above!** 🚀
-
----
+The Node.js approach is much simpler than Python on Windows - no virtual environments, no dependency conflicts, just install and run! 🚀
 
 **🍷 Happy wine processing on Windows!** 🪟✨

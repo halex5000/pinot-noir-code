@@ -21,10 +21,11 @@ const log = {
 };
 
 class WineAPIProcessor {
-    constructor(apiKey, baseUrl, rateLimitDelay = 1000) {
+    constructor(apiKey, baseUrl, rateLimitDelay = 1000, enableMockPricing = false) {
         this.apiKey = apiKey;
         this.baseUrl = baseUrl.replace(/\/$/, ''); // Remove trailing slash
         this.rateLimitDelay = rateLimitDelay;
+        this.enableMockPricing = enableMockPricing;
         this.axiosInstance = axios.create({
             timeout: 30000,
             headers: {
@@ -69,13 +70,17 @@ class WineAPIProcessor {
                     
                     // Store result for CSV output
                     const result = {
-                        Row: rowNum,
-                        'Wine Name': wineName,
-                        'Vintage': vintage,
-                        'Status': success ? 'Success' : 'Failed',
-                        'Mock Price': this.generateMockPrice(vintage),
-                        'Timestamp': new Date().toISOString().replace('T', ' ').substring(0, 19)
+                        row: rowNum,
+                        wineName: wineName,
+                        vintage: vintage,
+                        status: success ? 'Success' : 'Failed',
+                        timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19)
                     };
+                    
+                    // Only add mock price if enabled
+                    if (this.enableMockPricing) {
+                        result.mockPrice = this.generateMockPrice(vintage);
+                    }
                     results.push(result);
 
                     if (success) {
@@ -99,13 +104,17 @@ class WineAPIProcessor {
                     const wineName = row['Wine Name'] || row['\ufeffWine Name'] || 'Unknown';
                     const vintage = row['Vintage'] || 'Unknown';
                     const result = {
-                        Row: rowNum,
-                        'Wine Name': wineName,
-                        'Vintage': vintage,
-                        'Status': 'Error',
-                        'Mock Price': this.generateMockPrice(vintage),
-                        'Timestamp': new Date().toISOString().replace('T', ' ').substring(0, 19)
+                        row: rowNum,
+                        wineName: wineName,
+                        vintage: vintage,
+                        status: 'Error',
+                        timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19)
                     };
+                    
+                    // Only add mock price if enabled
+                    if (this.enableMockPricing) {
+                        result.mockPrice = this.generateMockPrice(vintage);
+                    }
                     results.push(result);
                 }
             }
@@ -200,6 +209,10 @@ class WineAPIProcessor {
      * Generate mock price for a given vintage
      */
     generateMockPrice(vintage) {
+        if (!this.enableMockPricing) {
+            return 'N/A';
+        }
+        
         try {
             const vintageInt = parseInt(vintage);
             // More realistic restaurant wine prices
@@ -252,16 +265,23 @@ class WineAPIProcessor {
         }
         
         try {
+            // Define header based on whether mock pricing is enabled
+            let header = [
+                { id: 'row', title: 'Row' },
+                { id: 'wineName', title: 'Wine Name' },
+                { id: 'vintage', title: 'Vintage' },
+                { id: 'status', title: 'Status' },
+                { id: 'timestamp', title: 'Timestamp' }
+            ];
+            
+            // Only add Mock Price column if mock pricing is enabled
+            if (this.enableMockPricing) {
+                header.splice(4, 0, { id: 'mockPrice', title: 'Mock Price' });
+            }
+            
             const csvWriter = createObjectCsvWriter({
                 path: outputFile,
-                header: [
-                    { id: 'row', title: 'Row' },
-                    { id: 'wineName', title: 'Wine Name' },
-                    { id: 'vintage', title: 'Vintage' },
-                    { id: 'status', title: 'Status' },
-                    { id: 'mockPrice', title: 'Mock Price' },
-                    { id: 'timestamp', title: 'Timestamp' }
-                ]
+                header: header
             });
             
             await csvWriter.writeRecords(results);
@@ -304,6 +324,7 @@ async function main() {
     let apiKey = null;
     let apiUrl = null;
     let rateLimit = 1.0;
+    let enableMockPricing = false;
     
     for (let i = 0; i < args.length; i++) {
         switch (args[i]) {
@@ -318,6 +339,9 @@ async function main() {
                 break;
             case '--rate-limit':
                 rateLimit = parseFloat(args[++i]);
+                break;
+            case '--enable-mock-pricing':
+                enableMockPricing = true;
                 break;
             case '--help':
             case '-h':
@@ -357,7 +381,7 @@ async function main() {
     
     // Create processor and run
     try {
-        const processor = new WineAPIProcessor(apiKey, apiUrl, rateLimit);
+        const processor = new WineAPIProcessor(apiKey, apiUrl, rateLimit, enableMockPricing);
         await processor.processCSV(csvFile);
     } catch (error) {
         console.error(`[ERROR] Processing failed: ${error.message}`);
@@ -386,6 +410,7 @@ function showHelp() {
     console.log("  --api-key     API key for authentication");
     console.log("  --api-url     API endpoint URL");
     console.log("  --rate-limit  Delay between API calls in seconds (default: 1.0)");
+    console.log("  --enable-mock-pricing  Enable mock pricing for testing (default: false)");
     console.log("  --help, -h    Show this help message");
 }
 
@@ -423,11 +448,21 @@ async function runInteractiveMode() {
     
     console.log("");
     
-    // Step 3: Confirm settings
+    // Step 3: Mock pricing configuration
+    console.log("🎭 Mock Pricing Configuration");
+    console.log("This generates fake prices for testing purposes.");
+    console.log("");
+    const enableMock = await getUserInput("Enable mock pricing for testing? (y/N): ");
+    const enableMockPricing = enableMock.toLowerCase() === 'y' || enableMock.toLowerCase() === 'yes';
+    
+    console.log("");
+    
+    // Step 4: Confirm settings
     console.log("Here's what we're about to run:");
     console.log(`  📁 CSV File: ${csvFile}`);
     console.log(`  🔑 API Key: ${apiKey}`);
     console.log(`  🌐 API URL: ${apiUrl}`);
+    console.log(`  🎭 Mock Pricing: ${enableMockPricing ? 'Enabled' : 'Disabled'}`);
     console.log("");
     
     const confirm = await getUserInput("Does this look correct? Ready to process your wines? (Y/n): ");
@@ -444,7 +479,7 @@ async function runInteractiveMode() {
     
     // Create processor and run
     try {
-        const processor = new WineAPIProcessor(apiKey, apiUrl, 1.0);
+        const processor = new WineAPIProcessor(apiKey, apiUrl, 1.0, enableMockPricing);
         await processor.processCSV(csvFile);
     } catch (error) {
         console.error(`❌ Error: ${error.message}`);
